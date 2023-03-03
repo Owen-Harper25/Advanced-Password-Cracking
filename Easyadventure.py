@@ -52,6 +52,7 @@ while path not in move:
     elif path == "north":
         if inventory["pocket"]["key"] == True:
             print("You escape!")
+            print("")
             break
         else:
             print("The door is locked.")
