@@ -20,7 +20,7 @@ def random_col(board):
 ship_row = random_row(board)
 ship_col = random_col(board)
 ship_location = "Ship Located at {}, {}".format(ship_row + 1, ship_col + 1)
-print(ship_location)
+# print(ship_location)
 
 for turn in range(4):
   print("Turn", turn + 1, "out of 4")

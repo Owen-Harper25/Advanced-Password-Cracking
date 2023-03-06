@@ -39,7 +39,6 @@ while path not in move:
                 break
             else:
                 inventory["backpack"]["poison_powder"] -= 1
-                print(inventory["backpack"]["poison_powder"])
                 print("You poison the king's drink and haistly leave the kitchen.")
                 pdrink = True
                 path = ""
@@ -48,11 +47,11 @@ while path not in move:
             path = ""
         elif yes_no == "no":
             print("You decide against posining the wine and leave the kitchen. You are now in the main hall again.")
-            print(inventory["backpack"]["poison_powder"])
+            # print(inventory["backpack"]["poison_powder"])
             path = ""
         else:
             print("Invalid response")
-            print(inventory["backpack"]["poison_powder"])
+            # print(inventory["backpack"]["poison_powder"])
             path = ""
     elif path == "north":
         print("You enter the guard's barracks. There is a sword laying against the wall, do you want to pick it up?")
