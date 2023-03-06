@@ -22,7 +22,7 @@ name = input("Insert Name: ")
 
 while path not in move:
     
-    print("You enter the castle's long hallway. To the East is the king's throne room and to your West is the royal kitchen. The guard's barracs is to the north. Choose your path", name, "the adventurer.")
+    print("You enter the castle's long hallway. To the East is the king's throne room and to your West is the royal kitchen. The guard's barracks is to the north. Choose your path", name, "the adventurer.")
     path = input("Enter north, east, or west: ")
 
     if path == "west":
@@ -39,7 +39,6 @@ while path not in move:
                 break
             else:
                 inventory["backpack"]["poison_powder"] -= 1
-                print(inventory["backpack"]["poison_powder"])
                 print("You poison the king's drink and haistly leave the kitchen.")
                 pdrink = True
                 path = ""
@@ -55,20 +54,24 @@ while path not in move:
             print(inventory["backpack"]["poison_powder"])
             path = ""
     elif path == "north":
-        print("You enter the guard's barracks. There is a sword laying against the wall, do you want to pick it up?")
-        yes_no = input("Choose yes or no: ")
-        if yes_no == "yes" and inventory["backpack"]["sword"] == False:
-            print("You pick up the sword and mount it on your back.")
-            inventory["backpack"]["sword"] = True
-            print("Nothing else catches your eye so you leave the room.")
-            path = ""
-        elif yes_no == "yes" and inventory["backpack"]["sword"] == True:
+        print("You enter the barracks.")
+        if inventory["backpack"]["sword"] == False:
+            print("You There is a sword laying against the wall, do you want to pick it up?")
+            yes_no = input("Choose yes or no: ")
+            if yes_no == "yes":
+                print("You pick up the sword and mount it on your back.")
+                inventory["backpack"]["sword"] = True
+                print("Nothing else catches your eye so you leave the room.")
+                path = ""
+            elif yes_no == "yes" and inventory["backpack"]["sword"] == True:
+                print("There is nothing else useful in this room.")
+                path = ""
+            else:
+                print("You descide to leave the sword alone. Nothing else catches your eye so you leave the room.")
+                path = ""
+        else:
             print("There is nothing else useful in this room.")
             path = ""
-        else:
-            print("You descide to leave the sword alone. Nothing else catches your eye so you leave the room.")
-            path = ""
-    
     elif path == "east" and pdrink == True:
         print("The king is laying on the floor with guards running franticly shouting that the king has died. You look at the kings hand to see a broken wine glass.")
         print("You win!")
@@ -78,7 +81,7 @@ while path not in move:
         attack = input("Do you slash, stab, or run? ")
         if attack == "run":
             print("You instantly regret pulling out the sword and are intimidated by the strong looking guards. You immidiatly turn around and sprint \
-                out of the castle to live another day.")
+            out of the castle to live another day.")
             break
         elif attack == "slash":
             print("You swing your sword sideways and it gets deflected by the guard's metal armour. The two guards stab you and you die.")
@@ -86,7 +89,7 @@ while path not in move:
             break
         elif attack == "stab":
             print("You thrust your sword deep into on guard's chest and then pull it out whilst doing a round house kick that lands on the second\
-                guard's head. He falls to the ground and you finish him off. The king pleads to you to spare him, but you don't.")
+            guard's head. He falls to the ground and you finish him off. The king pleads to you to spare him, but you don't.")
             print("You gain 5000 gold for slaying the enemy king.")
             inventory["gold"] + 5000
             print("You win!")
@@ -100,3 +103,4 @@ while path not in move:
         path = ""
     else:
         print("Invalid Response")
+        path = ""
