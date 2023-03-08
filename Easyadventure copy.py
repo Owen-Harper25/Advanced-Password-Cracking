@@ -9,13 +9,23 @@ inventory = {
 }
 
 while path != [0, 1]:
-    path = [0, 0]
-    print("You enter a large room. The two doors in the room go north and south")
-    path = input("Choose north or south: ")
-    print("")
-
-    if path == "south":
-        path = [0, -1]
+    if move == "north":
+        path[1] +=1
+    # elif path == "east":
+    #     path[0] += 1
+    elif move == "south":
+        path[1] -= 1
+    # elif path == "west":
+    #     path[0] -= 1
+    else:
+        print("Didn't get that")
+    
+    
+    if path == [0, 0]:
+        print("You enter a large room. The two doors in the room go north and south")
+        move = input("Choose north or south: ")
+        print("")
+    if path == [0, -1]:
         if inventory["pocket"]["key"] != True:
             print("You find a key on the floor. Do you want to pick it up?")
             yes_no = input("Choose yes or no: ")
@@ -44,7 +54,7 @@ while path != [0, 1]:
                 path = [0, -1]
 
 
-        if path == "north":
+        if move == "north":
             if inventory["pocket"]["key"]:
                 print("You escape!")
                 print("")
@@ -52,17 +62,18 @@ while path != [0, 1]:
             else:
                 print("The door is locked.")
                 print("")
-                path = ""
-    elif path == "north":
+                path = [0, 0]
+    elif path == [0, 1]:
         if inventory["pocket"]["key"] == True:
             print("You escape!")
             print("")
-            break
+            path = [0, 1]
+            # break
         else:
             print("The door is locked.")
             print("")
-            path = ""
+            path = [0, 0]
     else:
         print("Invalid Response")
         print("")
-        path = ""
+        path = [0, 0]
