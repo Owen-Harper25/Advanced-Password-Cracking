@@ -55,11 +55,9 @@ while path != [0 ,2]:
             path = [0, 0]
         elif yes_no == "no":
             print("You decide against posining the wine and leave the kitchen. You are now in the main hall again.")
-            # print(inventory["backpack"]["poison_powder"])
             path = [0, 0]
         else:
             print("Invalid response")
-            # print(inventory["backpack"]["poison_powder"])
             path = [0, 0]
     elif path == [0, 1]:
         print("You enter the barracks.")
@@ -104,10 +102,78 @@ while path != [0 ,2]:
             break
     elif path == [0, -1]:
         print("You enter the garden.")
-        yes_no = input("Talk to the guard standing in the corner? ")
+        yes_no = input("A guard walks up to you in the garden and asks you to pluck weeds. Will you accept? ")
         if yes_no == "yes":
-            print("You walk up to the guard. He asks you to pluck weeds in the garden.")
-            yes_no = input("Will you accept? ")
+            board = []
+            weed1 = False
+            weed2 = False
+            for x in range(5):
+                board.append(["O"] * 5)
+            def print_board(board):
+                for row in board:
+                    print(" ".join(row))
+            def random_x(board):
+                return randint(0, len(board) - 1)
+            def random_y(board):
+                return randint(0, len(board[0]) - 1)
+            def random_a(board):
+                return randint(0, len(board) - 1)
+            def random_b(board):
+                return randint(0, len(board[0]) - 1)
+
+            weed_x = random_x(board)
+            weed_y = random_y(board)
+            weed_a = random_a(board)
+            weed_b = random_b(board)
+            board[weed_x][weed_y] = "|"
+            board[weed_a][weed_b] = "|"
+            print_board(board)
+            for turn in range(2):
+                print("Turn", turn + 1, "out of 2")
+                guess_y = int(input("Guess Row: ")) - 1
+                guess_x = int(input("Guess Col: ")) - 1
+
+                if guess_x == weed_x and guess_y == weed_y:
+                    board[weed_x][weed_y] = "X"
+                    print_board(board)
+                    print("You got the first weed!")
+                    weed1 = True
+                    if weed1 and weed2 == True:
+                        print("You got all the weeds!")
+                        print("The guard hands you 50 gold.")
+                        inventory["gold"] += 50
+                        print(inventory["gold"])
+                        print("You retun to the main room.")
+                        path[1] += 1
+        
+                elif guess_x == weed_a and guess_y == weed_b:
+                    board[weed_a][weed_b] = "X"
+                    print_board(board)
+                    weed2 = True
+                    print("You the second weed!")
+                    if weed1 and weed2 == True:
+                        print("You got all the weeds!")
+                        print("The guard hands you 50 gold.")
+                        inventory["gold"] += 50
+                        print(inventory["gold"])
+                        print("You retun to the main room.")
+                        path[1] += 1
+
+
+                else:
+                    if (guess_x < 0 or guess_x > 4) or (guess_y < 0 or guess_y > 4):
+                        print("Oops, that's not even in the garden.")
+                        turn -=1
+                    elif(board[guess_x][guess_y] == "X"):
+                        print("You guessed that one already.")
+                        turn -=1
+                    else:
+                        print("You missed the weed!")
+                        board[guess_x][guess_y] = "X"
+            if turn == 2:
+                print("Out of turns")
+
+      
         else:
             print("You decline. Where will you go next?")
             move = input("Will you go north or south? ")
